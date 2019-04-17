@@ -8,64 +8,147 @@
   <title>Document</title>
 </head>
 <body>
-  <header>
-    <h1>Documentation Page</h1>
+  <aside id="page-header">
     <nav id="navbar">
+      <header><h1>Documentation Page</h1></header>
       <ul>
-        <li><a class="nav-link" href="#section_zero">Section Zero</a></li>
-        <li><a class="nav-link" href="#section_one">Section One</a></li>
-        <li><a class="nav-link" href="#section_two">Section Two</a></li>
-        <li><a class="nav-link" href="#section_three">Section Three</a></li>
-        <li><a class="nav-link" href="#section_four">Section Four</a></li>
-        <li><a class="nav-link" href="#section_five">Section Five</a></li>
+        <li><a class="nav-link" href="#Index">Index</a></li>
+        <li><a class="nav-link" href="#Loading_the_Page">Loading the Page</a></li>
+        <li><a class="nav-link" href="#Rules_of_the_Game">Rules of the Game</a></li>
+        <li><a class="nav-link" href="#Set_the_Board">Set the Board</a></li>
+        <li><a class="nav-link" href="#Your_Moves_and_Your_Score">Your Moves and Your Score</a></li>
+        <li><a class="nav-link" href="#Congratualations">Congratualations</a></li>
       </ul>
     </nav>
-  </header>
+    <footer>
+      <p>Made by <a href="https://sgonzo3.github.io/">Santos Gonzalez</a></p>
+      <p>All Rights Reserved</p>
+    </footer>
+  </aside>
+
   <main id="main-doc">
-    <section class="main-section" id="section_zero">
-      <h2>Section Zero</h2>
-      <p></p>
-      <code></code>
+    <section class="main-section" id="Index">
+      <header><h2>Index</h2></header>
       <ul>
-        <li><a href="#section_one">Section One</a></li>
-        <li><a href="#section_two">Section Two</a></li>
-        <li><a href="#section_three">Section Three</a></li>
-        <li><a href="#section_four">Section Four</a></li>
-        <li><a href="#section_five">Section Five</a></li>
+        <li><a href="#Loading_the_Page">Loading the Page</a></li>
+        <li><a href="#Rules_of_the_Game">Rules of the Game</a></li>
+        <li><a href="#Set_the_Board">Set the Board</a></li>
+        <li><a href="#Your_Moves_and_Your_Score">Your Moves and Your Score</a></li>
+        <li><a href="#Congratualations">Congratualations</a></li>
       </ul>
       <p></p>
     </section>
-    <section class="main-section" id="section_one">
-      <h2>Section One</h2>
-      <p></p>
-      <code></code>
-      <p></p>
+    <section class="main-section" id="Loading_the_Page">
+      <header><h2>Loading the Page</h2></header>
+      <p>Open the index.html file in your  browser. Click the Start button to begin the game once the page has loaded.</p>
+      <pre>
+        <code>
+start();
+// Hides deck, creates button prompt and event listener to start game
+function start() {
+  let startButton = document.getElementById('start');
+  // hides deck before prompt
+  deck.classList.add('hidden');
+  startButton.addEventListener('click', function(e) {
+    makeGame();
+    // Hides start prompt
+    startButton.classList.add('hidden');
+    // shows deck with cards
+    deck.classList.remove('hidden');
+  });
+}
+        </code>
+      </pre>
+      <p>This function runs when the page is loaded. It will hide the deck and create a button prompt which hides itself, displays the grid, and begins the game once the user provides input.</p>
     </section>
-    <section class="main-section" id="section_two">
-      <h2>Section Two</h2>
-      <p></p>
-      <code></code>
-      <p></p>
+    <section class="main-section" id="Rules_of_the_Game">
+      <header><h2>Rules of the Game</h2></header>
+      <p>The Memory Game is designed to test your memory of 8 icons, each placed randomly on a grid twice. The objective is to examine a card, recognize its icon, and remeber its placement until the other in the pair is found. When both tiles in the pair are selected a match is recognized and the cards remain face up until the game is over. If two cards are not a match they are covered again and placed back on the grid in their spot.</p>
+      <pre>
+        <code>
+//sets logic for comparing selected cards
+function matching() {
+  if (openCards[0].firstElementChild.className ===
+  openCards[1].firstElementChild.className) {
+    match();
+    victoryCondition();
+  } else {
+    noMatch();
+  }
+}
+        </code>
+      </pre>
+      <p>Cards chosen by the user are added to an array and compared against eachother. If the same they are matched and the victory condition is checked. If they are not matches the cards are flipped back and removed from the array of selected cards.</p>
     </section>
-    <section class="main-section" id="section_three">
-      <h2>Section Three</h2>
-      <p></p>
-      <code></code>
-      <p></p>
+    <section class="main-section" id="Set_the_Board">
+      <header><h2>Set the Board</h2></header>
+      <p>A board is displayed as a grid of squares, the icons are hidden in each square until they are selected. A timer, move counter, and rating are listed above the board. these are updated as the game is played.  </p>
+      <pre>
+        <code>
+function makeGame() {
+  // shuffles the list, adds HTML to each card
+  let cardHTML = shuffle(cards).map(function(card) {
+    return makeCards(card);
+  });
+  // adds each card to the page
+  deck.innerHTML = cardHTML.join('');
+  defaults();
+  cardEvents();
+  restartButton();
+  startTimer();
+}
+        </code>
+      </pre>
+      <p>This function shuffles the list of cards and displays them on the board. It also sets the game defaults, and create event listeners for the cards and the restart button. Finally it begins the timer for the new game.</p>
     </section>
-    <section class="main-section" id="section_four">
-      <h2>Section Four</h2>
-      <p></p>
-      <code></code>
-      <p></p>
+    <section class="main-section" id="Your_Moves_and_Your_Score">
+      <header><h2>Your Moves and Your Score</h2></header>
+      <p>Click each square to reveal its icon. Your second click, on another card, will check for a match. Click retry above the top-right of the grid to reset your game.</p>
+      <pre>
+        <code>
+//sets functionality for clicking on cards
+function cardEvents() {
+  const pageCards = document.querySelectorAll('.card');
+  pageCards.forEach(function(card) {
+    // adds eventlistener to each .card
+    card.addEventListener('click', function cardClicks() {
+      // prevents selecting more than 2 cards or selecting open cards
+      if (openCards.length <= 1 && !card.classList.contains('open')) {
+        // adds each chosen card to array
+        openCards.push(card);
+        moveCount();
+        scoreCount();
+        // flips each chosen card
+        card.classList.add('open', 'show');
+      }
+      if (openCards.length === 2) {
+        matching();
+      }
+    });
+  });
+}
+      </code>
+    </pre>
+      <p>This sets the events to take place on each card click by the user. It checks if the cards are already matched then allows only up to two cards to be selected at a time. For selected cards, not yet matched, the mouve counter is updated the score is checked for a change, and the card icon is shown. If matched the <code>matching()</code> function is called.  </p>
     </section>
-    <section class="main-section" id="section_five">
-      <h2>Section Five</h2>
-      <p></p>
-      <code></code>
-      <p></p>
+    <section class="main-section" id="Congratualations">
+      <header><h2>Congratualations</h2></header>
+      <p>Your time, score, move count are displayed above the grid. Match all squares to win! Once complete a modal prompt will display your Moves, Time, and Rating.</p>
+      <pre>
+        <code>
+//Checks if game is won
+function victoryCondition() {
+  if (matchedPairs === 8) {
+    stopTimer();
+    modalPrompt();
+  }
+}
+      </code>
+    </pre>
+      <p>The modal prompt will ask if you wish to play again with a newly randomized grid.</p>
     </section>
   </main>
-  <footer></footer>
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js
+"></script>
 </body>
 </html>

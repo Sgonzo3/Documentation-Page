@@ -1,22 +1,74 @@
-html {
+html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
-header {
+
+body {
+
+}
+
+#page-header {
   position: fixed;
   left: 0;
+  top: 0;
+  padding: 0;
   height: 100%;
   width: 30%;
   overflow: scroll;
-}
-main {
-  position: absolute;
-  right: 0;
-  height: 100%;
-  width: 70%;
+  background-color: rgba(35, 35, 35, 1);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  color: rgba(235, 235, 235, 1);
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  text-align: center;
 }
 
-@media and screen (min-width: 400px) {
-  
+nav {
+  overflow: scroll;
+  flex: 1;
+}
+header > h1 {
+  color: rgba(265, 165, 35, 1);
+}
+
+ul {
+  list-style: none;
+  padding: 0 0.5em;
+  text-align: left;
+  overflow: hidden;
+}
+
+ #page-header a {
+   color: rgba(235, 235, 235, 1);
+ }
+
+footer {
+  align-self: center;
+  color: rgba(265, 165, 35, 1);
+  text-align: center;
+}
+
+#main-doc {
+  width: 70%;
+  padding: 1em;
+  margin: 0 0 0 30%;
+  overflow: auto;
+}
+
+code {
+  display: block;
+
+}
+
+@media screen and (min-width: 600px) {
+  #page-header {
+    width: 20%;
+  }
 }
